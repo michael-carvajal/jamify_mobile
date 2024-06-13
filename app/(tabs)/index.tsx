@@ -1,6 +1,6 @@
 import { SearchBar } from '@/components/SearchBar';
 import SearchFeatured from '@/components/SearchFeatured';
-import { Image, StyleSheet, Platform, SafeAreaView, View, Keyboard, Text, FlatList } from 'react-native';
+import { Image, StyleSheet, Platform, SafeAreaView, View, Keyboard, Text, FlatList, ScrollView } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { useSongSheets } from '../../context/SongSheetContext';
 import { Colors } from '@/constants/Colors';
@@ -32,16 +32,23 @@ export default function HomeScreen() {
   console.log(songSheets[0]);
 
   return (
-    <TouchableWithoutFeedback onPress={dismissKeyboard}>
+    <ScrollView contentContainerStyle={{
+      justifyContent: 'center',
+      alignItems: 'center',
+    }} showsVerticalScrollIndicator={false} style={styles.container}>
 
-      <SafeAreaView style={styles.safeArea}>
-        <View style={styles.container}>
-          <SearchBar onSearch={handleSearch} />
-          <SearchFeatured />
-          <BestRated songSheets={songSheets} />
-        </View>
-      </SafeAreaView>
-    </TouchableWithoutFeedback>
+
+      <TouchableWithoutFeedback onPress={dismissKeyboard}>
+
+        <SafeAreaView style={styles.safeArea}>
+          <View style={styles.container}>
+            <SearchBar onSearch={handleSearch} />
+            <SearchFeatured />
+            <BestRated songSheets={songSheets} />
+          </View>
+        </SafeAreaView>
+      </TouchableWithoutFeedback>
+    </ScrollView>
   )
 }
 
@@ -52,8 +59,7 @@ const styles = StyleSheet.create({
   container: {
     marginTop: Platform.OS === 'android' ? 30 : 0, // Add padding for Android
     paddingHorizontal: 16,
-    justifyContent: 'center',
-    alignItems: 'center',
+
   },
 
 })
