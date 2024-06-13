@@ -4,12 +4,16 @@ import { Image, StyleSheet, Platform, SafeAreaView, View, Keyboard, Text, FlatLi
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { useSongSheets } from '../../context/SongSheetContext';
 import { Colors } from '@/constants/Colors';
+import { useThemeColor } from '@/hooks/useThemeColor';
+import { ThemedText } from '@/components/ThemedText';
+import BestRated from '@/components/BestRated';
 
 
 
 
 export default function HomeScreen() {
   const { songSheets, loading, error } = useSongSheets();
+
 
   const handleSearch = (query: string) => {
     console.log('Searching for:', query);
@@ -34,19 +38,7 @@ export default function HomeScreen() {
         <View style={styles.container}>
           <SearchBar onSearch={handleSearch} />
           <SearchFeatured />
-          <FlatList
-          showsVerticalScrollIndicator={false}
-            data={songSheets}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item }) => {
-              console.log(item.title);
-              
-              return (
-              <View style={styles.item}>
-                <Text style={styles.itemText}>{item.title}</Text>
-              </View>
-            )}}
-          />
+          <BestRated songSheets={songSheets} />
         </View>
       </SafeAreaView>
     </TouchableWithoutFeedback>
@@ -58,17 +50,10 @@ const styles = StyleSheet.create({
     //use this for background color debugging
   },
   container: {
-    paddingTop: Platform.OS === 'android' ? 30 : 0, // Add padding for Android
+    marginTop: Platform.OS === 'android' ? 30 : 0, // Add padding for Android
     paddingHorizontal: 16,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  item: {
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.grey,
-  },
-  itemText : {
-    color: "white"
-  }
+
 })
