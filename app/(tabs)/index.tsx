@@ -3,6 +3,7 @@ import SearchFeatured from '@/components/SearchFeatured';
 import { Image, StyleSheet, Platform, SafeAreaView, View, Keyboard, Text, FlatList } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { useSongSheets } from '../../context/SongSheetContext';
+import { Colors } from '@/constants/Colors';
 
 
 
@@ -24,7 +25,7 @@ export default function HomeScreen() {
   if (error) {
     return <Text>Error: {error.message}</Text>;
   }
-  console.log(songSheets);
+  console.log(songSheets[0]);
 
   return (
     <TouchableWithoutFeedback onPress={dismissKeyboard}>
@@ -34,13 +35,17 @@ export default function HomeScreen() {
           <SearchBar onSearch={handleSearch} />
           <SearchFeatured />
           <FlatList
+          showsVerticalScrollIndicator={false}
             data={songSheets}
             keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item }) => (
+            renderItem={({ item }) => {
+              console.log(item.title);
+              
+              return (
               <View style={styles.item}>
-                <Text>{item.title}</Text>
+                <Text style={styles.itemText}>{item.title}</Text>
               </View>
-            )}
+            )}}
           />
         </View>
       </SafeAreaView>
@@ -61,7 +66,9 @@ const styles = StyleSheet.create({
   item: {
     padding: 16,
     borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
-    color: "white"
+    borderBottomColor: Colors.grey,
   },
+  itemText : {
+    color: "white"
+  }
 })

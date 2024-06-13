@@ -29,7 +29,7 @@ export const SongSheetProvider: FC<{ children: ReactNode }> = ({ children }) => 
     setLoading(true);
     try {
       const response = await axios.get<SongSheet[]>(`${apiUrl}/songsheets`);
-      setSongSheets(response.data);
+      setSongSheets(Object.values(response.data.Songsheets));
     } catch (err) {
       setError(err as Error);
     } finally {
