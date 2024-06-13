@@ -8,7 +8,7 @@ const BestRated = ({ songSheets }: any) => {
     return (
         <FlatList
             showsVerticalScrollIndicator={false}
-            data={songSheets}
+            data={songSheets.slice(17,23)}
             style={styles.container}
             keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) => {
@@ -30,14 +30,14 @@ const styles = StyleSheet.create({
     container: {
         alignSelf: 'flex-start',
         marginTop: 30,
+        width: "100%",
         
         },
         item: {
-        display: 'flex',
-        gap: 5,
         padding: 16,
+        marginBottom:5,
         borderBottomWidth: 1,
         borderBottomColor: Colors.grey,
-        flex: 1
+        flex: 1,
     },
 })
