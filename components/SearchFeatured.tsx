@@ -1,5 +1,6 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { Colors } from '@/constants/Colors';
 
 const SearchFeatured = () => {
     const featuredSubjects = ["Top 100", "For you", "Replay"];
@@ -26,7 +27,7 @@ const styles = StyleSheet.create({
         gap: 10
     },
     card: {
-        backgroundColor: "grey",
+        backgroundColor: Colors.grey,
         height: 150,
         width: 130,
         display: 'flex',
