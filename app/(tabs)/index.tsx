@@ -19,7 +19,7 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   safeArea: {
-    backgroundColor: '#f5f5f5',
+    //use this for background color debugging
   },
   container: {
     paddingTop: Platform.OS === 'android' ? 30 : 0, // Add padding for Android
