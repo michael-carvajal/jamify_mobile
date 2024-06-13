@@ -1,4 +1,5 @@
 import { SearchBar } from '@/components/SearchBar';
+import SearchFeatured from '@/components/SearchFeatured';
 import { Image, StyleSheet, Platform, SafeAreaView, View } from 'react-native';
 
 
@@ -12,6 +13,7 @@ export default function HomeScreen() {
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <SearchBar onSearch={handleSearch} />
+        <SearchFeatured />
       </View>
     </SafeAreaView>
   )
