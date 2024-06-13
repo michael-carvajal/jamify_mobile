@@ -7,6 +7,7 @@ import 'react-native-reanimated';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SongSheetProvider } from '../context/SongSheetContext'; // Adjust the path as necessary
 import { useColorScheme } from '@/hooks/useColorScheme';
+import SongSheetDetails from './SongSheetDetails';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -33,6 +34,8 @@ export default function RootLayout() {
         <SongSheetProvider>
           <Stack>
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="SongSheetDetails"/>
+
             <Stack.Screen name="+not-found" />
           </Stack>
         </SongSheetProvider>

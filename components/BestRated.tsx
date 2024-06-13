@@ -1,28 +1,34 @@
-import { FlatList, StyleSheet, Text, View } from 'react-native'
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { ThemedText } from './ThemedText';
 import { Colors } from '@/constants/Colors';
 import { ThemedView } from './ThemedView';
 
-const BestRated = ({ songSheets }: any) => {
-    return (
-        <FlatList
-            showsVerticalScrollIndicator={false}
-            data={songSheets.slice(17,23)}
-            style={styles.container}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item }) => {
-                console.log(item.title);
+import { useNavigation } from '@react-navigation/native';
 
-                return (
-                    <ThemedView style={styles.item}>
-                        <ThemedText>{item.title}</ThemedText>
-                    </ThemedView>
-                )
-            }}
-        />
-    )
-}
+const BestRated = ({ songSheets }: any) => {
+  const navigation = useNavigation();
+
+  const handlePress = (songSheet : any) => {
+    navigation.navigate('SongSheetDetails', { songSheet });
+  };
+
+  return (
+    <FlatList
+      data={songSheets.slice(17,23)}
+      style={styles.container}
+      keyExtractor={(item) => item.id.toString()}
+      renderItem={({ item }) => (
+        <TouchableOpacity onPress={() => handlePress(item)}>
+          <ThemedView style={styles.item}>
+            <ThemedText>{item.title}</ThemedText>
+            {/* Render other song sheet details */}
+          </ThemedView>
+        </TouchableOpacity>
+      )}
+    />
+  );
+};
 
 export default BestRated
 
