@@ -1,6 +1,7 @@
 import { Colors } from "@/constants/Colors";
 import { SetStateAction, useState } from "react";
 import { TextInput, View, StyleSheet } from "react-native";
+import { ThemedView } from "./ThemedView";
 
 export const SearchBar = ({ onSearch }: any) => {
     const [query, setQuery] = useState('');
@@ -13,14 +14,14 @@ export const SearchBar = ({ onSearch }: any) => {
     };
 
     return (
-        <View style={styles.container}>
+        <ThemedView style={styles.container}>
             <TextInput
                 style={styles.input}
                 placeholder="Search..."
                 value={query}
                 onChangeText={handleInputChange}
             />
-        </View>
+        </ThemedView>
     );
 };
 
@@ -30,7 +31,6 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         borderColor: '#ddd',
         borderWidth: 1,
-        backgroundColor: Colors.grey,
         paddingHorizontal: 16,
         paddingVertical: 8,
         elevation: 2,
@@ -38,7 +38,6 @@ const styles = StyleSheet.create({
     input: {
         height: 40,
         fontSize: 16,
-        color: "#fff"
     },
 })
 

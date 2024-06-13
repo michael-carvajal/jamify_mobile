@@ -1,6 +1,7 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { Colors } from '@/constants/Colors';
+import { ThemedView } from './ThemedView';
+import { ThemedText } from './ThemedText';
 
 const SearchFeatured = () => {
     const featuredSubjects = ["Top 100", "For you", "Replay"];
@@ -8,9 +9,9 @@ const SearchFeatured = () => {
     return (
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.container}>
             {featuredSubjects.map((feature, ind) => {
-                return (<View key={`featured-${ind}`} style={styles.card}>
-                    <Text>{feature}</Text>
-                </View>)
+                return (<ThemedView key={`featured-${ind}`} style={styles.card}>
+                    <ThemedText>{feature}</ThemedText>
+                </ThemedView>)
             })}
         </ScrollView>
     )
@@ -27,7 +28,7 @@ const styles = StyleSheet.create({
         gap: 10
     },
     card: {
-        backgroundColor: Colors.grey,
+        // backgroundColor: Colors.grey,
         height: 150,
         width: 130,
         display: 'flex',
