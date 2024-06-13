@@ -6,8 +6,8 @@ const SearchFeatured = () => {
 
     return (
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.container}>
-            {featuredSubjects.map(feature => {
-                return (<View style={styles.card}>
+            {featuredSubjects.map((feature, ind) => {
+                return (<View key={`featured-${ind}`} style={styles.card}>
                     <Text>{feature}</Text>
                 </View>)
             })}
