@@ -1,11 +1,15 @@
 import { SearchBar } from '@/components/SearchBar';
 import SearchFeatured from '@/components/SearchFeatured';
-import { Image, StyleSheet, Platform, SafeAreaView, View, Keyboard } from 'react-native';
+import { Image, StyleSheet, Platform, SafeAreaView, View, Keyboard, Text, FlatList } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { useSongSheets } from '../../context/SongSheetContext';
+
 
 
 
 export default function HomeScreen() {
+  const { songSheets, loading, error } = useSongSheets();
+
   const handleSearch = (query: string) => {
     console.log('Searching for:', query);
     // Add your search logic here
@@ -13,6 +17,15 @@ export default function HomeScreen() {
   const dismissKeyboard = () => {
     Keyboard.dismiss();
   };
+  if (loading) {
+    return <Text>Loading...</Text>;
+  }
+
+  if (error) {
+    return <Text>Error: {error.message}</Text>;
+  }
+  console.log(songSheets);
+
   return (
     <TouchableWithoutFeedback onPress={dismissKeyboard}>
 
@@ -20,6 +33,15 @@ export default function HomeScreen() {
         <View style={styles.container}>
           <SearchBar onSearch={handleSearch} />
           <SearchFeatured />
+          <FlatList
+            data={songSheets}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item }) => (
+              <View style={styles.item}>
+                <Text>{item.title}</Text>
+              </View>
+            )}
+          />
         </View>
       </SafeAreaView>
     </TouchableWithoutFeedback>
@@ -35,5 +57,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  item: {
+    padding: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+    color: "white"
   },
 })
