@@ -7,11 +7,11 @@ import { Colors } from '@/constants/Colors';
 const screenWidth = Dimensions.get('window').width;
 const numColumns = 2;
 
-const availableSpace = screenWidth - 20; // 20 for padding (10 on each side)
+const availableSpace = screenWidth - 30; // 20 for padding (10 on each side)
 const itemSize = availableSpace / numColumns;
 
 const SearchCategories = () => {
-    const categories = ["Artist", "Rock", "Pop", "Country", "Jazz", "Folk", "Decades"];
+    const categories = ["Artist", "Rock", "Pop", "Country", "Folk", "Decades"];
 
     const handlePress = (item: string) => {
         console.log(`You pressed the ${item} button`);
@@ -21,7 +21,7 @@ const SearchCategories = () => {
     const renderItems = (item: string, index: number) => (
         <Pressable key={`search-cat-${index}`} onPress={() => handlePress(item)} style={[styles.item, { height: itemSize, width: itemSize }]}>
             <ThemedView style={styles.card}>
-                <ThemedText>{item}</ThemedText>
+                <ThemedText style={styles.cardName}>{item}</ThemedText>
             </ThemedView>
         </Pressable>
     );
@@ -49,11 +49,12 @@ export default SearchCategories;
 const styles = StyleSheet.create({
     container: {
         marginTop: 20,
-        paddingHorizontal: 10,
+        marginBottom: 40
     },
     row: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+        gap: 10
     },
     item: {
         marginBottom: 10, // Adjust the bottom margin to your preference
@@ -63,5 +64,10 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: 'center',
         borderRadius: 10,
+        height: '100%'
     },
+    cardName :{
+        fontWeight: 'bold',
+        fontSize : 18
+    }
 });

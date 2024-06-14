@@ -37,7 +37,7 @@ export default function HomeScreen() {
     <ScrollView contentContainerStyle={{
       justifyContent: 'center',
       alignItems: 'center',
-    }} showsVerticalScrollIndicator={false} style={[styles.container, {paddingTop: insets.top}]}>
+    }} showsVerticalScrollIndicator={false} style={[styles.container, {paddingTop: insets.top, paddingBottom: insets.bottom}]}>
 
 
 
