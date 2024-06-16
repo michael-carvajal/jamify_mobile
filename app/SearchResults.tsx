@@ -15,7 +15,9 @@ const SearchResults = () => {
   if (feature === "Top 100") {
     filteredList = songSheets.reverse();
   } else if (feature ==="For you") {
-    filteredList = songSheets.slice(23) 
+    filteredList = [{title: "Sign in to see songsheets just for you!"}]
+  }else if (feature === "Replay") {
+    filteredList = [{title: "Sign in to see your replays!"}]
   }
   return (
     <ScrollView style={styles.container}>
