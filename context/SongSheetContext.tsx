@@ -1,7 +1,7 @@
 // SongSheetContext.tsx
 import React, { createContext, useContext, useState, useEffect, ReactNode, FC } from 'react';
 import axios from 'axios';
-import { SongsheetResponse, Songsheet, Album, Artist, Genre } from '../types/Songsheets';
+import { SongsheetResponse, Songsheet, Album, Artist, Genre } from '../types/SongSheets';
 
 interface SongSheetContextState {
   songSheets: Songsheet[];
@@ -23,8 +23,8 @@ export const SongSheetProvider: FC<{ children: ReactNode }> = ({ children }) => 
   const [genres, setGenres] = useState<Genre[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
-
-  const apiUrl = process.env.EXPO_PUBLIC_JAMIFY_API_URL;
+  const env = process.env.EXPO_PUBLIC_ENV;  
+  const apiUrl = env === "production" ? process.env.EXPO_PUBLIC_JAMIFY_API_URL : process.env.EXPO_PUBLIC_LOCAL_JAMIFY_API_URL ;
 
   const fetchSongSheets = async () => {
     setLoading(true);
