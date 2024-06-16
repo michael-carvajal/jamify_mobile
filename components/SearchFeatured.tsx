@@ -18,7 +18,7 @@ const SearchFeatured = () => {
   return (
     <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.container}>
       {featuredSubjects.map((feature, index) => (
-        <Link key={`featured-${index}`} href={ {pathname: 'SearchResults', params: { feature} }}>
+        <Link key={`featured-${index}`} href={ {pathname: 'SearchResults', params: { filter : feature} }}>
           <ThemedView style={styles.card}>
             <ThemedText>{feature}</ThemedText>
           </ThemedView>

@@ -10,13 +10,13 @@ const SearchResults = () => {
   const route = useRoute();
   const {songSheets} = useSongSheets();
 
-  const {feature}  = route.params
+  const {filter}  = route.params
   let filteredList;
-  if (feature === "Top 100") {
+  if (filter === "Top 100") {
     filteredList = songSheets.reverse();
-  } else if (feature ==="For you") {
+  } else if (filter ==="For you") {
     filteredList = [{title: "Sign in to see songsheets just for you!"}]
-  }else if (feature === "Replay") {
+  }else if (filter === "Replay") {
     filteredList = [{title: "Sign in to see your replays!"}]
   }
   return (
