@@ -36,6 +36,7 @@ export default function RootLayout() {
             <Stack>
               <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
               <Stack.Screen name="SongSheetDetails" />
+              <Stack.Screen name="SearchResults" />
               <Stack.Screen name="+not-found" />
             </Stack>
           </SafeAreaProvider>
