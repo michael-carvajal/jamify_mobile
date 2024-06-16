@@ -14,6 +14,8 @@ const SearchResults = () => {
   let filteredList;
   if (feature === "Top 100") {
     filteredList = songSheets.reverse();
+  } else if (feature ==="For you") {
+    filteredList = songSheets.slice(23) 
   }
   return (
     <ScrollView style={styles.container}>
