@@ -1,24 +1,17 @@
-import { ScrollView, StyleSheet, Pressable } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import React from 'react';
-import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { ThemedView } from './ThemedView';
 import { ThemedText } from './ThemedText';
 import { Link } from 'expo-router';
 
 const SearchFeatured = () => {
-  const navigation = useNavigation<NavigationProp<any>>();
 
   const featuredSubjects = ["Top 100", "For you", "Replay"];
-
-  const handlePress = (feature: string) => {
-    // Navigate to search results page with feature as a parameter
-    navigation.navigate('SearchResults', { feature });
-  };
 
   return (
     <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.container}>
       {featuredSubjects.map((feature, index) => (
-        <Link key={`featured-${index}`} href={ {pathname: 'SearchResults', params: { filter : feature} }}>
+        <Link key={`featured-${index}`} href={{ pathname: 'SearchResults', params: { filter: feature } }}>
           <ThemedView style={styles.card}>
             <ThemedText>{feature}</ThemedText>
           </ThemedView>
@@ -34,8 +27,6 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     marginTop: 25,
-    overflow: 'scroll',
-    paddingHorizontal: 10,
   },
   card: {
     height: 150,
