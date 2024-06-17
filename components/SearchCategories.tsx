@@ -3,6 +3,7 @@ import React from 'react';
 import { ThemedView } from './ThemedView';
 import { ThemedText } from './ThemedText';
 import { Colors } from '@/constants/Colors';
+import { Link } from 'expo-router';
 
 const screenWidth = Dimensions.get('window').width;
 const numColumns = 2;
@@ -15,15 +16,16 @@ const SearchCategories = () => {
 
     const handlePress = (item: string) => {
         console.log(`You pressed the ${item} button`);
-        alert(`You pressed the ${item} button`);
     };
 
     const renderItems = (item: string, index: number) => (
-        <Pressable key={`search-cat-${index}`} onPress={() => handlePress(item)} style={[styles.item, { height: itemSize, width: itemSize }]}>
-            <ThemedView style={styles.card}>
-                <ThemedText style={styles.cardName}>{item}</ThemedText>
-            </ThemedView>
-        </Pressable>
+        <Link key={`search-cat-${index}`} href={{pathname : "SearchResults", params : {filter : item}}}>
+            <Pressable  onPress={() => handlePress(item)} style={[styles.item, { height: itemSize, width: itemSize }]}>
+                <ThemedView style={styles.card}>
+                    <ThemedText style={styles.cardName}>{item}</ThemedText>
+                </ThemedView>
+            </Pressable>
+        </Link>
     );
 
     return (

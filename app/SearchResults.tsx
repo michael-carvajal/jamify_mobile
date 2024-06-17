@@ -8,7 +8,7 @@ import { useSongSheets } from '@/context/SongSheetContext';
 
 const SearchResults = () => {
   const route = useRoute();
-  const {songSheets} = useSongSheets();
+  const {songSheets, artists} = useSongSheets();
 
   const {filter}  = route.params
   let filteredList;
@@ -18,7 +18,12 @@ const SearchResults = () => {
     filteredList = [{title: "Sign in to see songsheets just for you!"}]
   }else if (filter === "Replay") {
     filteredList = [{title: "Sign in to see your replays!"}]
+  }else if (filter === "Artist") {
+    filteredList = artists.map(artist => ({title : artist.name}))
   }
+  console.log("artist filtereed list =========>",filteredList);
+  console.log("artist regular =++++++++++++========>",artists);
+  
   return (
     <ScrollView style={styles.container}>
       {filteredList?.map((item, index) => (
