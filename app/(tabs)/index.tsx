@@ -25,7 +25,6 @@ export default function HomeScreen() {
   if (error) {
     return <Text>Error: {error.message}</Text>;
   }
-  console.log(songSheets[0]);
 
   return (
     <ScrollView contentContainerStyle={{

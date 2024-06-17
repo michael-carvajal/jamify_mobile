@@ -14,7 +14,6 @@ const BestRated: React.FC<BestRatedProps> = ({ songSheets }) => {
   const navigation = useNavigation<NavigationProp<any>>();
 
   const handlePress = (songSheet: Songsheet) => {
-    console.log('Pressed it');
     navigation.navigate('SongSheetDetails', { songSheet });
   };
 
