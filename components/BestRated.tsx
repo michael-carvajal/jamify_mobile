@@ -1,9 +1,9 @@
-import { FlatList, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 import React from 'react';
 import { ThemedText } from './ThemedText';
 import { Colors } from '@/constants/Colors';
 import { ThemedView } from './ThemedView';
-import { Songsheet } from '../types/Songsheets';
+import { Songsheet } from '../types/SongSheets';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 interface BestRatedProps {
@@ -14,7 +14,6 @@ const BestRated: React.FC<BestRatedProps> = ({ songSheets }) => {
   const navigation = useNavigation<NavigationProp<any>>();
 
   const handlePress = (songSheet: Songsheet) => {
-    console.log('Pressed it');
     navigation.navigate('SongSheetDetails', { songSheet });
   };
 

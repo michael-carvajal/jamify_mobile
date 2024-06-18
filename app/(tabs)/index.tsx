@@ -1,19 +1,14 @@
 import { SearchBar } from '@/components/SearchBar';
 import SearchFeatured from '@/components/SearchFeatured';
-import { Image, StyleSheet, Platform, SafeAreaView, View, Keyboard, Text, FlatList, ScrollView, useWindowDimensions } from 'react-native';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { StyleSheet, Text, ScrollView, } from 'react-native';
 import { useSongSheets } from '../../context/SongSheetContext';
-import { Colors } from '@/constants/Colors';
-import { useThemeColor } from '@/hooks/useThemeColor';
-import { ThemedText } from '@/components/ThemedText';
 import BestRated from '@/components/BestRated';
 import SearchCategories from '@/components/SearchCategories';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import LoadingSpinner from '@/components/LoadingSpinner';
 
 
-let width;
 export default function HomeScreen() {
-  const { height, width } = useWindowDimensions();
   const { songSheets, loading, error } = useSongSheets();
   const insets = useSafeAreaInsets();
 
@@ -21,23 +16,20 @@ export default function HomeScreen() {
     console.log('Searching for:', query);
     // Add your search logic here
   };
-  const dismissKeyboard = () => {
-    Keyboard.dismiss();
-  };
+
   if (loading) {
-    return <Text>Loading...</Text>;
+    return <LoadingSpinner />;
   }
 
   if (error) {
     return <Text>Error: {error.message}</Text>;
   }
-  console.log(songSheets[0]);
 
   return (
     <ScrollView contentContainerStyle={{
       justifyContent: 'center',
       alignItems: 'center',
-    }} showsVerticalScrollIndicator={false} style={[styles.container, {paddingTop: insets.top, paddingBottom: insets.bottom}]}>
+    }} showsVerticalScrollIndicator={false} style={[styles.container, { paddingTop: insets.top}]}>
 
 
 
@@ -54,9 +46,7 @@ const styles = StyleSheet.create({
     //use this for background color debugging
   },
   container: {
-    maxWidth: width,
     paddingHorizontal: 16,
-
   },
 
 })
