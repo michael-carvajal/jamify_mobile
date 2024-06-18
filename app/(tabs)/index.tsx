@@ -8,7 +8,6 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import LoadingSpinner from '@/components/LoadingSpinner';
 
 
-let width;
 export default function HomeScreen() {
   const { songSheets, loading, error } = useSongSheets();
   const insets = useSafeAreaInsets();
@@ -30,7 +29,7 @@ export default function HomeScreen() {
     <ScrollView contentContainerStyle={{
       justifyContent: 'center',
       alignItems: 'center',
-    }} showsVerticalScrollIndicator={false} style={[styles.container, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
+    }} showsVerticalScrollIndicator={false} style={[styles.container, { paddingTop: insets.top}]}>
 
 
 
@@ -47,9 +46,7 @@ const styles = StyleSheet.create({
     //use this for background color debugging
   },
   container: {
-    maxWidth: width,
     paddingHorizontal: 16,
-
   },
 
 })
