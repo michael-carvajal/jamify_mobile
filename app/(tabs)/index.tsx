@@ -6,6 +6,7 @@ import BestRated from '@/components/BestRated';
 import SearchCategories from '@/components/SearchCategories';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import LoadingSpinner from '@/components/LoadingSpinner';
+import { ThemedView } from '@/components/ThemedView';
 
 
 export default function HomeScreen() {
@@ -26,17 +27,14 @@ export default function HomeScreen() {
   }
 
   return (
-    <ScrollView contentContainerStyle={{
-      justifyContent: 'center',
-      alignItems: 'center',
-    }} showsVerticalScrollIndicator={false} style={[styles.container, { paddingTop: insets.top}]}>
+    <ScrollView showsVerticalScrollIndicator={false} style={ { paddingTop: insets.top }}>
 
-
-
-      <SearchBar onSearch={handleSearch} />
-      <SearchFeatured />
-      <BestRated songSheets={songSheets} />
-      <SearchCategories />
+      <ThemedView style={styles.container}>
+        <SearchBar onSearch={handleSearch} />
+        <SearchFeatured />
+        <BestRated songSheets={songSheets} />
+        <SearchCategories />
+      </ThemedView>
     </ScrollView>
   )
 }
@@ -47,6 +45,8 @@ const styles = StyleSheet.create({
   },
   container: {
     paddingHorizontal: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
 })

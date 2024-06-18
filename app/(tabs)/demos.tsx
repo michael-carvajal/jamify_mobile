@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { Audio } from 'expo-av';
+import { ThemedView } from '@/components/ThemedView';
 
 export default function Demos() {
   const [recording, setRecording] = React.useState();
@@ -59,18 +60,17 @@ export default function Demos() {
   }
 
   return (
-    <View style={styles.container}>
+    <ThemedView style={styles.container} >
       <Button title={recording ? 'Stop Recording' : 'Start Recording\n\n\n'} onPress={recording ? stopRecording : startRecording} />
       {getRecordingLines()}
       <Button title={recordings.length > 0 ? '\n\n\nClear Recordings' : ''} onPress={clearRecordings} />
-    </View>
+    </ThemedView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },
