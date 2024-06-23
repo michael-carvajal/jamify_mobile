@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { View, TextInput, Button, Text, Platform } from 'react-native';
+import { View, TextInput, Button, Text, Platform, Pressable, StyleSheet } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from 'expo-router';
+import { ThemedText } from './ThemedText';
+import { ThemedView } from './ThemedView';
+import InputField from './InputField';
 
 const Login = () => {
     const navigation = useNavigation()
@@ -42,22 +45,41 @@ const Login = () => {
     };
 
     return (
-        <View>
-            <TextInput
+        <View style={styles.container}>
+            <InputField
                 placeholder="Email"
                 value={email}
                 onChangeText={setEmail}
             />
-            <TextInput
+            <InputField
                 placeholder="Password"
                 value={password}
                 onChangeText={setPassword}
-                secureTextEntry
+                isSecure={true}
             />
             {error ? <Text>{error}</Text> : null}
-            <Button title="Login" onPress={handleLogin} />
+            <Pressable onPress={handleLogin}>
+                <ThemedView style={styles.loginInButton}>
+                    <ThemedText>Login</ThemedText>
+                </ThemedView>
+            </Pressable>
         </View>
     );
 };
 
+const styles = StyleSheet.create({
+
+    container: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: 25
+    },
+    loginInButton: {
+        width: 50,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
+})
 export default Login;
