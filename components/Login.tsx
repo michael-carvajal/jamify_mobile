@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Platform, Pressable, StyleSheet } from 'react-native';
+import { View, Text, Platform, Pressable, StyleSheet, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ThemedText } from './ThemedText';
@@ -10,6 +10,7 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+
     const env = process.env.EXPO_PUBLIC_ENV;
 
     const apiUrl = env === "production" || Platform.OS === "ios" ? process.env.EXPO_PUBLIC_JAMIFY_API_URL : process.env.EXPO_PUBLIC_LOCAL_JAMIFY_API_URL;
@@ -53,11 +54,11 @@ const Login = () => {
                 isSecure={true}
             />
             {error ? <Text>{error}</Text> : null}
-            <Pressable onPress={handleLogin}>
+            <TouchableOpacity onPress={handleLogin}>
                 <ThemedView style={styles.loginInButton}>
                     <ThemedText>Login</ThemedText>
                 </ThemedView>
-            </Pressable>
+            </TouchableOpacity>
         </View>
     );
 };
@@ -68,10 +69,12 @@ const styles = StyleSheet.create({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        gap: 25
+        gap: 25,
+        marginTop: 100
     },
     loginInButton: {
-        width: 50,
+        width: 150,
+        height: 50,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center'
