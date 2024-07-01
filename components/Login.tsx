@@ -24,11 +24,13 @@ const Login = () => {
         try {
 
             // const csrfToken = csrf
-            const response = await axios.post(`${apiUrl!}/auth/login`, {
-                email: email,
-                password: password,
+            const response = await fetch(`${apiUrl!}/auth/login`, {
+                method: "POST",
+                headers : {"Content-Type" : "application/json", "csrf_token" : "IjVkZjVlMmZhNzhmY2VlODkyNzdiOGU3MjE5MzVjM2I4NmRhYTg4NjYi.ZoIHsA.1cRC4Gi4xE5F4VeRdKh2HZC9wrQ"},
+                body : JSON.stringify({email, password})
             });
-            console.log("response.data ====> ", response);
+            const data = await response.json()
+            console.log("login in response data ====> ", data);
             
             // if (response.data.token) {
             //     await AsyncStorage.setItem('authToken', response.data.token);
