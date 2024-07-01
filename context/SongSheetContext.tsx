@@ -30,11 +30,15 @@ export const SongSheetProvider: FC<{ children: ReactNode }> = ({ children }) => 
   const fetchSongSheets = async () => {
     setLoading(true);
     try {
-      const response = await axios.get<SongsheetResponse>(`${apiUrl}/songsheets`);
-      setSongSheets(Object.values(response.data.Songsheets));
-      setAlbums(Object.values(response.data.Albums));
-      setArtists(Object.values(response.data.Artists));
-      setGenres(Object.values(response.data.Genres));
+      const response = await fetch(`${apiUrl}/songsheets`);
+      const data =  await response.json();
+      console.log(data);
+      
+      // const response = await axios.get<SongsheetResponse>(`${apiUrl}/songsheets`);
+      // setSongSheets(Object.values(response.data.Songsheets));
+      // setAlbums(Object.values(response.data.Albums));
+      // setArtists(Object.values(response.data.Artists));
+      // setGenres(Object.values(response.data.Genres));
     } catch (err) {
       setError(err as Error);
     } finally {
