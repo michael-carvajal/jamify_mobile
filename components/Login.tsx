@@ -1,63 +1,85 @@
 import React, { useEffect, useState } from 'react';
-import { View, TextInput, Button, Text, Platform } from 'react-native';
+import { View, Text, Platform, Pressable, StyleSheet, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation } from 'expo-router';
+import { ThemedText } from './ThemedText';
+import { ThemedView } from './ThemedView';
+import InputField from './InputField';
 
 const Login = () => {
-    const navigation = useNavigation()
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    
     const env = process.env.EXPO_PUBLIC_ENV;
 
     const apiUrl = env === "production" || Platform.OS === "ios" ? process.env.EXPO_PUBLIC_JAMIFY_API_URL : process.env.EXPO_PUBLIC_LOCAL_JAMIFY_API_URL;
 
     const parsedUrl = apiUrl?.split("/api")[0]
-    console.log(parsedUrl);
-    useEffect(() => {
-        handleLogin();
-    }, [])
+    // console.log(parsedUrl);
+
     const handleLogin = async () => {
         const csrf = await AsyncStorage.getItem("csrf_token")
-        console.log(csrf);
+        console.log("csrf token =====>  ", csrf);
         try {
 
-            const csrfToken = csrf
-            const response = await axios.post('http://127.0.0.1:5000/api/auth/login', {
-                email: email,
-                password: password,
-            }, {
-                headers: {
-                    'X-CSRFToken': csrfToken
-                },
-                withCredentials: true, // Ensure credentials are sent with the request
+            // const csrfToken = csrf
+            const response = await fetch(`${apiUrl!}/auth/login`, {
+                method: "POST",
+                headers : {"Content-Type" : "application/json", "csrf_token" : csrf!},
+                body : JSON.stringify({email, password})
             });
-            if (response.data.token) {
-                await AsyncStorage.setItem('authToken', response.data.token);
-            }
+            const data = await response.json()
+            console.log("login in response data ====> ", data);
+            
+            // if (response.data.token) {
+            //     await AsyncStorage.setItem('authToken', response.data.token);
+            // }
         } catch (error) {
             console.error('Login error', error);
         }
     };
 
+    // console.log(AsyncStorage.getItem('authToken'));
+    
     return (
-        <View>
-            <TextInput
+        <View style={styles.container}>
+            <InputField
                 placeholder="Email"
                 value={email}
                 onChangeText={setEmail}
             />
-            <TextInput
+            <InputField
                 placeholder="Password"
                 value={password}
                 onChangeText={setPassword}
-                secureTextEntry
+                isSecure={true}
             />
             {error ? <Text>{error}</Text> : null}
-            <Button title="Login" onPress={handleLogin} />
+            <TouchableOpacity onPress={handleLogin}>
+                <ThemedView style={styles.loginInButton}>
+                    <ThemedText>Login</ThemedText>
+                </ThemedView>
+            </TouchableOpacity>
         </View>
     );
 };
 
+const styles = StyleSheet.create({
+
+    container: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: 25,
+        marginTop: 100
+    },
+    loginInButton: {
+        width: 150,
+        height: 50,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
+})
 export default Login;

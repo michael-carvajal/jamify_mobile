@@ -3,6 +3,7 @@ import React, { createContext, useContext, useState, useEffect, ReactNode, FC } 
 import axios from 'axios';
 import { SongsheetResponse, Songsheet, Album, Artist, Genre } from '../types/SongSheets';
 import { Platform } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface SongSheetContextState {
   songSheets: Songsheet[];
@@ -30,11 +31,28 @@ export const SongSheetProvider: FC<{ children: ReactNode }> = ({ children }) => 
   const fetchSongSheets = async () => {
     setLoading(true);
     try {
-      const response = await axios.get<SongsheetResponse>(`${apiUrl}/songsheets`);
-      setSongSheets(Object.values(response.data.Songsheets));
-      setAlbums(Object.values(response.data.Albums));
-      setArtists(Object.values(response.data.Artists));
-      setGenres(Object.values(response.data.Genres));
+      console.log('fetching songs');
+
+      const response = await fetch(`${apiUrl}/songsheets`,
+        { 'credentials': 'include' }
+      );
+      console.log('response from songsheets');
+
+      const data = await response.json();
+      console.log('response again +++===> ', response.headers);
+      const token = await response.headers.map["set-cookie"].split(";")[0].split("=")[1];
+      
+      console.log("cookieeees", typeof token);
+      await AsyncStorage.setItem('csrf_token', token);
+      
+
+
+      setSongSheets(Object.values(data.Songsheets));
+      setAlbums(Object.values(data.Albums));
+      setArtists(Object.values(data.Artists));
+      setGenres(Object.values(data.Genres));
+      console.log(data);
+
     } catch (err) {
       setError(err as Error);
     } finally {
@@ -72,3 +90,4 @@ export const useSongSheets = (): SongSheetContextState => {
   }
   return context;
 };
+
