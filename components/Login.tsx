@@ -10,7 +10,7 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-
+    
     const env = process.env.EXPO_PUBLIC_ENV;
 
     const apiUrl = env === "production" || Platform.OS === "ios" ? process.env.EXPO_PUBLIC_JAMIFY_API_URL : process.env.EXPO_PUBLIC_LOCAL_JAMIFY_API_URL;
@@ -19,14 +19,14 @@ const Login = () => {
     // console.log(parsedUrl);
 
     const handleLogin = async () => {
-        // const csrf = await AsyncStorage.getItem("csrf_token")
-        // console.log(csrf);
+        const csrf = await AsyncStorage.getItem("csrf_token")
+        console.log("csrf token =====>  ", csrf);
         try {
 
             // const csrfToken = csrf
             const response = await fetch(`${apiUrl!}/auth/login`, {
                 method: "POST",
-                headers : {"Content-Type" : "application/json", "csrf_token" : "IjVkZjVlMmZhNzhmY2VlODkyNzdiOGU3MjE5MzVjM2I4NmRhYTg4NjYi.ZoIHsA.1cRC4Gi4xE5F4VeRdKh2HZC9wrQ"},
+                headers : {"Content-Type" : "application/json", "csrf_token" : csrf!},
                 body : JSON.stringify({email, password})
             });
             const data = await response.json()
