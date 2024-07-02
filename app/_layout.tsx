@@ -9,6 +9,7 @@ import { SongSheetProvider } from '../context/SongSheetContext'; // Adjust the p
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Platform } from 'react-native';
+import { UserProvider } from '@/context/UserContext';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -34,24 +35,27 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <SongSheetProvider>
-          <SafeAreaProvider>
-            <Stack>
-              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-              <Stack.Screen 
-                name="SongSheetDetails" 
-                options={{ headerBackTitle }} 
-              />
-              <Stack.Screen 
-                name="SearchResults" 
-                options={{ headerBackTitle }} 
-              />
-              <Stack.Screen 
-                name="+not-found" 
-              />
-            </Stack>
-          </SafeAreaProvider>
-        </SongSheetProvider>
+        <UserProvider>
+
+          <SongSheetProvider>
+            <SafeAreaProvider>
+              <Stack>
+                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                <Stack.Screen
+                  name="SongSheetDetails"
+                  options={{ headerBackTitle }}
+                />
+                <Stack.Screen
+                  name="SearchResults"
+                  options={{ headerBackTitle }}
+                />
+                <Stack.Screen
+                  name="+not-found"
+                />
+              </Stack>
+            </SafeAreaProvider>
+          </SongSheetProvider>
+        </UserProvider>
       </ThemeProvider>
     </GestureHandlerRootView>
   );
