@@ -7,10 +7,14 @@ import SearchCategories from '@/components/SearchCategories';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import { ThemedView } from '@/components/ThemedView';
+import { Colors } from '@/constants/Colors';
+import { useColorScheme } from '@/hooks/useColorScheme';
 
 
 export default function HomeScreen() {
   const { songSheets, loading, error } = useSongSheets();
+  const colorScheme = useColorScheme();
+
   const insets = useSafeAreaInsets();
 
   const handleSearch = (query: string) => {
@@ -27,9 +31,9 @@ export default function HomeScreen() {
   }
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false} style={ { paddingTop: insets.top }}>
+    <ScrollView showsVerticalScrollIndicator={false} style={ { paddingTop: insets.top,  backgroundColor : Colors[colorScheme ?? 'light'].background }}>
 
-      <ThemedView style={styles.container}>
+      <ThemedView style={[styles.container, {}]}>
         <SearchBar onSearch={handleSearch} />
         <SearchFeatured />
         <BestRated songSheets={songSheets} />

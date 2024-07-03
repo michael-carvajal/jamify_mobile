@@ -1,47 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, Platform, Pressable, StyleSheet, TouchableOpacity } from 'react-native';
-import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { useUser } from '../context/UserContext';
+import InputField from './InputField';
 import { ThemedText } from './ThemedText';
 import { ThemedView } from './ThemedView';
-import InputField from './InputField';
 
 const Login = () => {
+    const { login } = useUser();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    
-    const env = process.env.EXPO_PUBLIC_ENV;
-
-    const apiUrl = env === "production" || Platform.OS === "ios" ? process.env.EXPO_PUBLIC_JAMIFY_API_URL : process.env.EXPO_PUBLIC_LOCAL_JAMIFY_API_URL;
-
-    const parsedUrl = apiUrl?.split("/api")[0]
-    // console.log(parsedUrl);
 
     const handleLogin = async () => {
-        const csrf = await AsyncStorage.getItem("csrf_token")
-        console.log("csrf token =====>  ", csrf);
         try {
-
-            // const csrfToken = csrf
-            const response = await fetch(`${apiUrl!}/auth/login`, {
-                method: "POST",
-                headers : {"Content-Type" : "application/json", "csrf_token" : csrf!},
-                body : JSON.stringify({email, password})
-            });
-            const data = await response.json()
-            console.log("login in response data ====> ", data);
-            
-            // if (response.data.token) {
-            //     await AsyncStorage.setItem('authToken', response.data.token);
-            // }
-        } catch (error) {
-            console.error('Login error', error);
+            await login(email, password);
+            setError('');
+        } catch (err) {
+            setError('Invalid email or password');
         }
     };
+console.log(email, password);
 
-    // console.log(AsyncStorage.getItem('authToken'));
-    
     return (
         <View style={styles.container}>
             <InputField
@@ -66,20 +45,20 @@ const Login = () => {
 };
 
 const styles = StyleSheet.create({
-
     container: {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         gap: 25,
-        marginTop: 100
+        marginTop: 100,
     },
     loginInButton: {
         width: 150,
         height: 50,
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
-    }
-})
+        alignItems: 'center',
+    },
+});
+
 export default Login;

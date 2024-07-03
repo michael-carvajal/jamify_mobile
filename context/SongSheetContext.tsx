@@ -51,7 +51,6 @@ export const SongSheetProvider: FC<{ children: ReactNode }> = ({ children }) => 
       setAlbums(Object.values(data.Albums));
       setArtists(Object.values(data.Artists));
       setGenres(Object.values(data.Genres));
-      console.log(data);
 
     } catch (err) {
       setError(err as Error);
