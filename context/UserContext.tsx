@@ -31,7 +31,7 @@ export const UserProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
             if (response.ok) {
                 const data = await response.json();
-                setUser(data.user);
+                setUser({ ...data });
 
                 const token = await response.headers.map["set-cookie"].split(";")[0].split("=")[1];
                 const session = await response.headers.map["set-cookie"].split(", ")[1].split(";")[0].split("=")[1]
