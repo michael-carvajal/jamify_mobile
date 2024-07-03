@@ -1,7 +1,8 @@
 // UserContext.tsx
 
-import React, { createContext, useContext, useState, ReactNode, FC } from 'react';
+import React, { createContext, useContext, useState, ReactNode, FC, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
 
 interface User {
     id: number;
@@ -21,6 +22,17 @@ const UserContext = createContext<UserContextProps | undefined>(undefined);
 export const UserProvider: FC<{ children: ReactNode }> = ({ children }) => {
     const [user, setUser] = useState<User | null>(null);
 
+    useEffect( () => {
+        const getStoredUser = async () => {
+            const user = await AsyncStorage.getItem("user")
+           if (user) {
+            setUser(JSON.parse(user))
+           }
+        }
+        getStoredUser()
+        
+    }, [])
+
     const login = async (email: string, password: string) => {
         try {
             const response = await fetch(`${process.env.EXPO_PUBLIC_JAMIFY_API_URL}/auth/login`, {
@@ -32,6 +44,7 @@ export const UserProvider: FC<{ children: ReactNode }> = ({ children }) => {
             if (response.ok) {
                 const data = await response.json();
                 setUser({ ...data });
+                await AsyncStorage.setItem("user", JSON.stringify({ ...data }))
 
                 const token = await response.headers.map["set-cookie"].split(";")[0].split("=")[1];
                 const session = await response.headers.map["set-cookie"].split(", ")[1].split(";")[0].split("=")[1]
