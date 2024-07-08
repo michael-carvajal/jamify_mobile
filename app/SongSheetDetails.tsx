@@ -15,18 +15,17 @@ const SongSheetDetails = () => {
   const { songSheet } = route.params;
   return (
 
-    <ScrollView showsVerticalScrollIndicator={false} style={{  backgroundColor: Colors[colorScheme ?? 'light'].background }}>
+    <ScrollView showsVerticalScrollIndicator={false} style={{ backgroundColor: Colors[colorScheme ?? 'light'].background }}>
 
       <ThemedView style={styles.container}>
         <ThemedView style={styles.header}>
           <ThemedText style={styles.title}>{songSheet.title}</ThemedText>
-          <ThemedText style={{}}>{songSheet.title}</ThemedText>
-          <ThemedText style={{}}>{songSheet.title}</ThemedText>
-          <ThemedText style={{}}>{songSheet.title}</ThemedText>
-          <ThemedText style={{}}>{songSheet.title}</ThemedText>
-          <ThemedText style={{}}>{songSheet.title}</ThemedText>
+          <ThemedText style={{}}>album_id: {songSheet.album_id}</ThemedText>
+          <ThemedText style={{}}>artist_id: {songSheet.artist_id}</ThemedText>
+          <ThemedText style={{}}>author_id: {songSheet.author_id}</ThemedText>
           {/* Add other song sheet details here */}
         </ThemedView>
+        <ThemedText style={{}}>{songSheet.body}</ThemedText>
       </ThemedView>
     </ScrollView>
 
@@ -43,7 +42,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   header: {
-
+    display: 'flex',
+    alignItems: 'flex-end'
   }
 });
 
