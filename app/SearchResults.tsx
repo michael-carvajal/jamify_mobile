@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Pressable, View } from 'react-native';
+import { ScrollView, StyleSheet, Pressable, View, Text } from 'react-native';
 import React from 'react';
 import { useRoute } from '@react-navigation/native';
 import { ThemedView } from '@/components/ThemedView';
@@ -37,13 +37,11 @@ const SearchResults = () => {
     })
   } else {
     return (
-      <View style={styles.fullScreen}>
         <ThemedView style={styles.comingSoon}>
           <ThemedText style={styles.comingSoonText}>
             Coming Soon!
           </ThemedText>
         </ThemedView>
-      </View>
     )
   }
 
