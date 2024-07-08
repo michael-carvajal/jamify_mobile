@@ -4,6 +4,8 @@ import { useRoute } from '@react-navigation/native';
 import { ThemedView } from '@/components/ThemedView';
 import { ThemedText } from '@/components/ThemedText';
 import { useSongSheets } from '@/context/SongSheetContext';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { Songsheet } from '../types/SongSheets';
 
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
@@ -12,6 +14,11 @@ const SearchResults = () => {
   const colorScheme = useColorScheme();
   const route = useRoute();
   const { songSheets, artists, genres } = useSongSheets();
+  const navigation = useNavigation<NavigationProp<any>>();
+
+  const handlePress = (songSheet: Songsheet) => {
+    navigation.navigate('SongSheetDetails', { songSheet });
+  };
 
   const { filter } = route.params
   let filteredList;
@@ -48,7 +55,7 @@ const SearchResults = () => {
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={{ backgroundColor: Colors[colorScheme ?? 'light'].background }}>
       {filteredList?.map((item, index) => (
-        <Pressable key={`search-result-${index}`} onPress={() => {/* Handle press */ }}>
+        <Pressable key={`search-result-${index}`} onPress={() => handlePress(item)}>
           <ThemedView style={styles.item}>
             <ThemedText>{item.title}</ThemedText>
             {/* Render other song sheet details if necessary */}
