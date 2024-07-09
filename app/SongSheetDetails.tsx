@@ -6,18 +6,24 @@ import { ThemedText } from '@/components/ThemedText';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { useSongSheets } from '@/context/SongSheetContext';
+import { useUser } from '@/context/UserContext';
 
 const SongSheetDetails = () => {
   const colorScheme = useColorScheme();
-  const  { artists} = useSongSheets();
+  const { artists } = useSongSheets();
+  const { allUsers } = useUser();
   const route = useRoute();
   const { songSheet } = route.params;
   const artist = artists.find(artist => {
     console.log(artist.id, songSheet);
     return artist.id === songSheet.artist_id
   })
-  
-  console.log(artist);
+  const author = allUsers?.find(user => {
+    console.log(user.id, songSheet);
+    return user.id === songSheet.author_id
+  })
+
+  console.log(author);
   return (
 
     <ScrollView showsVerticalScrollIndicator={false} style={{ backgroundColor: Colors[colorScheme ?? 'light'].background }}>
@@ -26,8 +32,8 @@ const SongSheetDetails = () => {
         <ThemedView style={styles.header}>
           <ThemedText style={styles.title}>{songSheet.title}</ThemedText>
           {/* <ThemedText style={{}}>album_id: {songSheet.album_id}</ThemedText> */}
-          <ThemedText style={{}}>Artist: {artist?.name}</ThemedText>
-          <ThemedText style={{}}>Created By: {songSheet.author_id}</ThemedText>
+          <ThemedText style={styles.artistAuthor}>Artist: {artist?.name}</ThemedText>
+          <ThemedText style={styles.artistAuthor}>Created By: {author?.username}</ThemedText>
           {/* Add other song sheet details here */}
         </ThemedView>
         <ThemedText style={{}}>{songSheet.body}</ThemedText>
@@ -49,6 +55,9 @@ const styles = StyleSheet.create({
   header: {
     display: 'flex',
     alignItems: 'flex-end'
+  },
+  artistAuthor : {
+    color : Colors.yellow
   }
 });
 

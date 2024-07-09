@@ -40,7 +40,7 @@ export const UserProvider: FC<{ children: ReactNode }> = ({ children }) => {
             const response = await fetch(`${process.env.EXPO_PUBLIC_JAMIFY_API_URL}/users`);
             const data = await response.json();
             console.log('all users data =========-->',data);
-            setAllUsers(data)
+            setAllUsers(data.users)
             
         } catch (error) {
             console.log(error);
