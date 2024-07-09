@@ -11,6 +11,7 @@ interface User {
 
 interface UserContextProps {
     user: User | null;
+    allUsers: User[] | null;
     login: (email: string, password: string) => Promise<void>;
     signUp: (username: string, firstName: string, lastName: string, email: string, password: string) => Promise<void>;
     logout: () => void;
@@ -21,6 +22,7 @@ const UserContext = createContext<UserContextProps | undefined>(undefined);
 
 export const UserProvider: FC<{ children: ReactNode }> = ({ children }) => {
     const [user, setUser] = useState<User | null>(null);
+    const [allUsers, setAllUsers] = useState<User[] | null>(null);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
@@ -30,9 +32,22 @@ export const UserProvider: FC<{ children: ReactNode }> = ({ children }) => {
                 setUser(JSON.parse(user));
             }
         };
+        getAllUsers()
         getStoredUser();
     }, []);
+    const getAllUsers = async () => {
+        try {
+            const response = await fetch(`${process.env.EXPO_PUBLIC_JAMIFY_API_URL}/users`);
+            const data = await response.json();
+            console.log('all users data =========-->',data);
+            setAllUsers(data)
+            
+        } catch (error) {
+            console.log(error);
+            
+        }
 
+    }
     const login = async (email: string, password: string) => {
         try {
             const response = await fetch(`${process.env.EXPO_PUBLIC_JAMIFY_API_URL}/auth/login`, {
@@ -97,7 +112,7 @@ export const UserProvider: FC<{ children: ReactNode }> = ({ children }) => {
     };
 
     return (
-        <UserContext.Provider value={{ user, login, signUp, logout, error }}>
+        <UserContext.Provider value={{ user, login, signUp, logout, error, allUsers }}>
             {children}
         </UserContext.Provider>
     );
