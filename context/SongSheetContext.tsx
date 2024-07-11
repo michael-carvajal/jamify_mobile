@@ -40,11 +40,14 @@ export const SongSheetProvider: FC<{ children: ReactNode }> = ({ children }) => 
 
       const data = await response.json();
       console.log('response again +++===> ', response.headers);
-      const token = await response.headers.map["set-cookie"].split(";")[0].split("=")[1];
-      
-      console.log("cookieeees", typeof token);
-      await AsyncStorage.setItem('csrf_token', token);
-      
+      if (Platform.OS !== 'web') {
+        const token = await response.headers.map["set-cookie"].split(";")[0].split("=")[1];
+        console.log("cookieeees", typeof token);
+        await AsyncStorage.setItem('csrf_token', token);
+
+
+      }
+
 
 
       setSongSheets(Object.values(data.Songsheets));
