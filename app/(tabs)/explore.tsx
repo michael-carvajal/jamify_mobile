@@ -1,17 +1,20 @@
-import Ionicons from '@expo/vector-icons/Ionicons';
 import { StyleSheet, Image, Platform } from 'react-native';
-
 import { Collapsible } from '@/components/Collapsible';
 import { ExternalLink } from '@/components/ExternalLink';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Colors } from '@/constants/Colors';
+import { ScrollView } from 'react-native-gesture-handler';
+import { useColorScheme } from '@/hooks/useColorScheme';
 
 export default function TabTwoScreen() {
+  const insets = useSafeAreaInsets();
+  const colorScheme = useColorScheme();
+
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
-      headerImage={<Ionicons size={310} name="code-slash" style={styles.headerImage} />}>
+    <ScrollView style={[styles.container, { paddingTop: insets.top,  backgroundColor : Colors[colorScheme ?? 'light'].background }]}>
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Explore</ThemedText>
       </ThemedView>
@@ -78,13 +81,13 @@ export default function TabTwoScreen() {
         {Platform.select({
           ios: (
             <ThemedText>
-              The <ThemedText type="defaultSemiBold">components/ParallaxScrollView.tsx</ThemedText>{' '}
+              The <ThemedText type="defaultSemiBold">components/ThemedView.tsx</ThemedText>{' '}
               component provides a parallax effect for the header image.
             </ThemedText>
           ),
         })}
       </Collapsible>
-    </ParallaxScrollView>
+    </ScrollView>
   );
 }
 
@@ -99,4 +102,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 8,
   },
+  container: {
+    flex: 1
+  }
 });
