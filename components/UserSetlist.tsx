@@ -28,7 +28,7 @@ const UserSetlist = ({ user }: any) => {
         </ThemedView>
     }
     const handlePress = (setlistId: number) => {
-        navigation.navigate('SetlistResults', { setlistId });
+        navigation.navigate('SetlistResults', { id : setlistId });
     };
     return (
         <ThemedView>
