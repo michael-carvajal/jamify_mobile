@@ -1,6 +1,5 @@
-import { StyleSheet, Image, Platform } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import { Collapsible } from '@/components/Collapsible';
-import { ExternalLink } from '@/components/ExternalLink';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -8,22 +7,15 @@ import { Colors } from '@/constants/Colors';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { useUser } from '@/context/UserContext';
-import { useSetlists } from '@/context/SetlistContext';
-import LoadingSpinner from '@/components/LoadingSpinner';
+import UserSetlist from '@/components/UserSetlist';
+
 
 export default function TabTwoScreen() {
   const insets = useSafeAreaInsets();
   const colorScheme = useColorScheme();
   const { user } = useUser();
-  const { setlists, setlistItems, loading, error } = useSetlists()
-  if (loading) {
-    return <LoadingSpinner />;
-  }
 
-  if (error) {
-    return <ThemedText>Error: {error.message}</ThemedText>;
-  }
-  console.log(setlists, setlistItems);
+console.log(user);
 
   return (
     <ScrollView style={[styles.container, { paddingTop: insets.top, backgroundColor: Colors[colorScheme ?? 'light'].background }]}>
@@ -48,6 +40,7 @@ export default function TabTwoScreen() {
             ),
           })}
         </Collapsible>
+        <UserSetlist user={user}/>
       </>}
     </ScrollView>
   );
