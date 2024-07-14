@@ -15,7 +15,7 @@ export default function TabTwoScreen() {
   const insets = useSafeAreaInsets();
   const colorScheme = useColorScheme();
   const { user } = useUser();
-  const { setlists, loading, error } = useSetlists()
+  const { setlists, setlistItems, loading, error } = useSetlists()
   if (loading) {
     return <LoadingSpinner />;
   }
@@ -23,7 +23,7 @@ export default function TabTwoScreen() {
   if (error) {
     return <ThemedText>Error: {error.message}</ThemedText>;
   }
-  console.log(setlists);
+  console.log(setlists, setlistItems);
 
   return (
     <ScrollView style={[styles.container, { paddingTop: insets.top, backgroundColor: Colors[colorScheme ?? 'light'].background }]}>

@@ -1,11 +1,12 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode, FC } from 'react';
 import axios from 'axios';
-import { Setlist, SetlistItems } from '../types/Setlist';
+import { Setlist, SetlistItem } from '../types/Setlist';
 import { Platform } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface SetlistContextState {
     setlists: Setlist[];
+    setlistItems:  SetlistItem[]
     loading: boolean;
     error: Error | null;
     fetchSetlists: () => void;
@@ -16,6 +17,7 @@ const SetlistContext = createContext<SetlistContextState | undefined>(undefined)
 
 export const SetlistProvider: FC<{ children: ReactNode }> = ({ children }) => {
     const [setlists, setSetlists] = useState<Setlist[]>([]);
+    const [setlistItems, setSetlistItems] = useState<SetlistItem[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<Error | null>(null);
     const env = process.env.EXPO_PUBLIC_ENV;
@@ -35,7 +37,8 @@ export const SetlistProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
 
             }
-            setSetlists(Object.values(data.Setlist_items));
+            setSetlists(Object.values(data.Setlists));
+            setSetlistItems(Object.values(data.Setlist_items));
 
         } catch (err) {
             setError(err as Error);
@@ -61,7 +64,7 @@ export const SetlistProvider: FC<{ children: ReactNode }> = ({ children }) => {
     }, []);
 
     return (
-        <SetlistContext.Provider value={{ setlists, loading, error, fetchSetlists, postSetlist }}>
+        <SetlistContext.Provider value={{ setlists, setlistItems, loading, error, fetchSetlists, postSetlist }}>
             {children}
         </SetlistContext.Provider>
     );
