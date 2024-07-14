@@ -8,13 +8,22 @@ import { Colors } from '@/constants/Colors';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { useUser } from '@/context/UserContext';
+import { useSetlists } from '@/context/SetlistContext';
+import LoadingSpinner from '@/components/LoadingSpinner';
 
 export default function TabTwoScreen() {
   const insets = useSafeAreaInsets();
   const colorScheme = useColorScheme();
   const { user } = useUser();
+  const { setlists, loading, error } = useSetlists()
+  if (loading) {
+    return <LoadingSpinner />;
+  }
 
-
+  if (error) {
+    return <ThemedText>Error: {error.message}</ThemedText>;
+  }
+  console.log(setlists);
 
   return (
     <ScrollView style={[styles.container, { paddingTop: insets.top, backgroundColor: Colors[colorScheme ?? 'light'].background }]}>
