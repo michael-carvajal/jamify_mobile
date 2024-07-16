@@ -10,23 +10,36 @@ import { Setlist } from '../types/Setlist';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { Songsheet } from '@/types/SongSheets';
+import { useSongSheets } from '@/context/SongSheetContext';
 
 const SetlistResults = () => {
   const colorScheme = useColorScheme();
   const route = useRoute();
   const { id } = route.params
   const { setlistItems } = useSetlists();
+  const { songSheets }  = useSongSheets();
   const navigation = useNavigation<NavigationProp<any>>();
+const currSetlistItems = setlistItems.filter(setlist => setlist.setlist_id === id)
+
 
   const handlePress = (songSheet: Songsheet) => {
     navigation.navigate('SongSheetDetails', { songSheet });
   };
 
-  console.log('setlist id -==-=-=-> ', id);
   
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={{ backgroundColor: Colors[colorScheme ?? 'light'].background }}>
-
+                    {currSetlistItems.map((item, index) => {
+                        const songsheet = songSheets.find(songsheet => songsheet.id === item.songsheet_id)
+                        
+                return (
+                    <ThemedView key={`setlistItem-key-${index}`} style={styles.item}>
+                        <Pressable onPress={() => handlePress(songsheet!)}>
+                            <ThemedText>{songsheet!.title}</ThemedText>
+                        </Pressable>
+                    </ThemedView>
+                )
+            })}
     </ScrollView>
   );
 };
