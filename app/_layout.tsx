@@ -10,6 +10,7 @@ import { useColorScheme } from '@/hooks/useColorScheme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Platform } from 'react-native';
 import { UserProvider } from '@/context/UserContext';
+import { SetlistProvider } from '@/context/SetlistContext';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -38,22 +39,25 @@ export default function RootLayout() {
         <UserProvider>
 
           <SongSheetProvider>
-            <SafeAreaProvider>
-              <Stack>
-                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-                <Stack.Screen
-                  name="SongSheetDetails"
-                  options={{ headerBackTitle }}
-                />
-                <Stack.Screen
-                  name="SearchResults"
-                  options={{ headerBackTitle }}
-                />
-                <Stack.Screen
-                  name="+not-found"
-                />
-              </Stack>
-            </SafeAreaProvider>
+            <SetlistProvider>
+
+              <SafeAreaProvider>
+                <Stack>
+                  <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                  <Stack.Screen
+                    name="SongSheetDetails"
+                    options={{ headerBackTitle }}
+                  />
+                  <Stack.Screen
+                    name="SearchResults"
+                    options={{ headerBackTitle }}
+                  />
+                  <Stack.Screen
+                    name="+not-found"
+                  />
+                </Stack>
+              </SafeAreaProvider>
+            </SetlistProvider>
           </SongSheetProvider>
         </UserProvider>
       </ThemeProvider>
