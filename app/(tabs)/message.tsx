@@ -14,7 +14,7 @@ export default function Message() {
     const [isConnected, setIsConnected] = useState(false);
     const [transport, setTransport] = useState('N/A');
     const [message, setMessage] = useState('');
-    const [messages, setMessages] = useState([]);
+    const [messages, setMessages] = useState<string[]>([]);
     const colorScheme = useColorScheme();
     const { user } = useUser();
 
