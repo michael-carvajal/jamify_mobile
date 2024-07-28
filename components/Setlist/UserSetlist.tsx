@@ -2,8 +2,8 @@ import { Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { useSetlists } from '@/context/SetlistContext';
 import LoadingSpinner from '@/components/LoadingSpinner';
-import { ThemedText } from './ThemedText';
-import { ThemedView } from './ThemedView';
+import { ThemedText } from '../ThemedText';
+import { ThemedView } from '../ThemedView';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 import { Setlist } from '@/types/Setlist';

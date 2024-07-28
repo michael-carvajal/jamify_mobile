@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useUser } from '@/context/UserContext';
-import { ThemedText } from './ThemedText';
-import { ThemedView } from './ThemedView';
-import InputField from './InputField';
+import { ThemedText } from '../ThemedText';
+import { ThemedView } from '../ThemedView';
+import InputField from '../InputField';
 
 const SignUp = () => {
     const { signUp, error } = useUser();

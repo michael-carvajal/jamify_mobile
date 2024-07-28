@@ -1,7 +1,7 @@
 import { ScrollView, StyleSheet } from 'react-native';
 import React from 'react';
-import { ThemedView } from './ThemedView';
-import { ThemedText } from './ThemedText';
+import { ThemedView } from '../ThemedView';
+import { ThemedText } from '../ThemedText';
 import { Link } from 'expo-router';
 
 const SearchFeatured = () => {

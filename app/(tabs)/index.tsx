@@ -1,9 +1,9 @@
-import { SearchBar } from '@/components/SearchBar';
-import SearchFeatured from '@/components/SearchFeatured';
+import { SearchBar } from '@/components/Home/SearchBar';
+import SearchFeatured from '@/components/Home/SearchFeatured';
 import { StyleSheet, Text, ScrollView, } from 'react-native';
 import { useSongSheets } from '../../context/SongSheetContext';
-import BestRated from '@/components/BestRated';
-import SearchCategories from '@/components/SearchCategories';
+import BestRated from '@/components/Home/BestRated';
+import SearchCategories from '@/components/Home/SearchCategories';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import { ThemedView } from '@/components/ThemedView';
