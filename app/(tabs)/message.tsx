@@ -1,7 +1,7 @@
-import { StyleSheet, Text, View, TextInput } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
+import { TextInput } from 'react-native-gesture-handler';
 import { socket } from '../../socket';
-import { useEffect, useState } from 'react';
-import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import InputField from '@/components/InputField';
@@ -9,15 +9,16 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { Colors } from '@/constants/Colors';
 import { useUser } from '@/context/UserContext';
+import useMessages from '@/hooks/useMessages';
 
 export default function Message() {
     const [isConnected, setIsConnected] = useState(false);
     const [transport, setTransport] = useState('N/A');
     const [message, setMessage] = useState('');
-    const [messages, setMessages] = useState<string[]>([]);
+    const { messages, addMessage, clearMessages } = useMessages();
+
     const colorScheme = useColorScheme();
     const { user } = useUser();
-
     const insets = useSafeAreaInsets();
 
     useEffect(() => {
@@ -42,30 +43,35 @@ export default function Message() {
         socket.on('connect', onConnect);
         socket.on('disconnect', onDisconnect);
 
-        socket.on('message', (newMessage) => {
-            setMessages((prevMessages) => [...prevMessages, newMessage]);
+        socket.on('connect_error', (error: Error) => {
+            console.log('Connection Error:', error.message);
+        });
+
+        socket.on('connect_timeout', (timeout: number) => {
+            console.log('Connection Timeout:', timeout);
         });
 
         return () => {
             socket.off('connect', onConnect);
             socket.off('disconnect', onDisconnect);
             socket.off('message');
+            socket.off('connect_error');
+            socket.off('connect_timeout');
         };
     }, []);
 
     const handleMessageSend = () => {
         if (message.trim()) {
             socket.send(message);
+            addMessage(message);
             setMessage('');
         }
     };
-    console.log(messages);
 
     return (
         <ScrollView showsVerticalScrollIndicator={false} style={{ paddingTop: insets.top, backgroundColor: Colors[colorScheme ?? 'light'].background }}>
-
             <ThemedView style={styles.container}>
-               {user ? <>
+                {user ? <>
                     <ThemedText>Status: {isConnected ? 'connected' : 'disconnected'}</ThemedText>
                     <ThemedText>Transport: {transport}</ThemedText>
                     <ThemedView style={styles.messageContainer}>
@@ -105,10 +111,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: 10,
-      },
-      buttonText: {
+    },
+    buttonText: {
         color: Colors.grey,
         fontSize: 16,
-      },
-
+    },
 });
