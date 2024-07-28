@@ -8,6 +8,7 @@ import InputField from '@/components/InputField';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { Colors } from '@/constants/Colors';
+import { useUser } from '@/context/UserContext';
 
 export default function Message() {
     const [isConnected, setIsConnected] = useState(false);
@@ -15,6 +16,7 @@ export default function Message() {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
     const colorScheme = useColorScheme();
+    const { user } = useUser();
 
     const insets = useSafeAreaInsets();
 
@@ -63,21 +65,23 @@ export default function Message() {
         <ScrollView showsVerticalScrollIndicator={false} style={{ paddingTop: insets.top, backgroundColor: Colors[colorScheme ?? 'light'].background }}>
 
             <ThemedView style={styles.container}>
-                <ThemedText>Status: {isConnected ? 'connected' : 'disconnected'}</ThemedText>
-                <ThemedText>Transport: {transport}</ThemedText>
-                <ThemedView style={styles.messageContainer}>
-                    {messages.map((msg, index) => (
-                        <ThemedText key={index}>{msg}</ThemedText>
-                    ))}
-                </ThemedView>
-                <InputField
-                    value={message}
-                    onChangeText={setMessage}
-                    placeholder="Type a message"
-                />
-                <TouchableOpacity onPress={handleMessageSend}>
-                    <ThemedText>Send Message</ThemedText>
-                </TouchableOpacity>
+               {user ? <>
+                    <ThemedText>Status: {isConnected ? 'connected' : 'disconnected'}</ThemedText>
+                    <ThemedText>Transport: {transport}</ThemedText>
+                    <ThemedView style={styles.messageContainer}>
+                        {messages.map((msg, index) => (
+                            <ThemedText key={index}>{msg}</ThemedText>
+                        ))}
+                    </ThemedView>
+                    <InputField
+                        value={message}
+                        onChangeText={setMessage}
+                        placeholder="Type a message"
+                    />
+                    <TouchableOpacity onPress={handleMessageSend}>
+                        <ThemedText>Send Message</ThemedText>
+                    </TouchableOpacity>
+                </> : <ThemedText>Sign up to message your partners!</ThemedText>}
             </ThemedView>
         </ScrollView>
     );
