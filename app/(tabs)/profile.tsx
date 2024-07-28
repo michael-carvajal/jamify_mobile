@@ -1,10 +1,10 @@
 import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import React, { useState } from 'react';
-import Login from '@/components/Login';
-import SignUp from '@/components/SignUp';
+import Login from '@/components/Profile/Login';
+import SignUp from '@/components/Profile/SignUp';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useUser } from '@/context/UserContext';
-import UserPage from '@/components/UserPage';
+import UserPage from '@/components/Profile/UserPage';
 import { ThemedView } from '@/components/ThemedView';
 
 const Profile = () => {

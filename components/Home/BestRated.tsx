@@ -1,9 +1,9 @@
 import { Pressable, StyleSheet, View } from 'react-native';
 import React from 'react';
-import { ThemedText } from './ThemedText';
+import { ThemedText } from '../ThemedText';
 import { Colors } from '@/constants/Colors';
-import { ThemedView } from './ThemedView';
-import { Songsheet } from '../types/SongSheets';
+import { ThemedView } from '../ThemedView';
+import { Songsheet } from '../../types/SongSheets';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 interface BestRatedProps {

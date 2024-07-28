@@ -1,7 +1,7 @@
 import { Dimensions, StyleSheet, Text, TouchableOpacity, View, Platform, Pressable } from 'react-native';
 import React from 'react';
-import { ThemedView } from './ThemedView';
-import { ThemedText } from './ThemedText';
+import { ThemedView } from '../ThemedView';
+import { ThemedText } from '../ThemedText';
 import { Colors } from '@/constants/Colors';
 import { Link } from 'expo-router';
 

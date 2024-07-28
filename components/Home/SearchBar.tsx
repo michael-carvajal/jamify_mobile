@@ -1,7 +1,6 @@
-import { Colors } from "@/constants/Colors";
 import { SetStateAction, useState } from "react";
-import { TextInput, View, StyleSheet } from "react-native";
-import { ThemedView } from "./ThemedView";
+import { TextInput, StyleSheet } from "react-native";
+import { ThemedView } from "../ThemedView";
 
 export const SearchBar = ({ onSearch }: any) => {
     const [query, setQuery] = useState('');

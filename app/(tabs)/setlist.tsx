@@ -7,7 +7,7 @@ import { Colors } from '@/constants/Colors';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { useUser } from '@/context/UserContext';
-import UserSetlist from '@/components/UserSetlist';
+import UserSetlist from '@/components/Setlist/UserSetlist';
 
 
 export default function TabTwoScreen() {
