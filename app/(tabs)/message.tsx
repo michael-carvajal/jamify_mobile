@@ -78,8 +78,8 @@ export default function Message() {
                         onChangeText={setMessage}
                         placeholder="Type a message"
                     />
-                    <TouchableOpacity onPress={handleMessageSend}>
-                        <ThemedText>Send Message</ThemedText>
+                    <TouchableOpacity onPress={handleMessageSend} style={styles.button}>
+                        <ThemedText style={styles.buttonText}>Send Message</ThemedText>
                     </TouchableOpacity>
                 </> : <ThemedText>Sign up to message your partners!</ThemedText>}
             </ThemedView>
@@ -98,5 +98,17 @@ const styles = StyleSheet.create({
         width: '100%',
         padding: 10,
     },
+    button: {
+        backgroundColor: Colors.yellow,
+        padding: 10,
+        borderRadius: 5,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 10,
+      },
+      buttonText: {
+        color: Colors.grey,
+        fontSize: 16,
+      },
 
 });
