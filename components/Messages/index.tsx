@@ -1,5 +1,5 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React, { useCallback, useEffect, useState } from 'react'
 import { ThemedText } from '../ThemedText'
 import { ThemedView } from '../ThemedView'
 import InputField from '../InputField'
@@ -52,22 +52,28 @@ const MainContainer = () => {
             socket.off('connect_timeout');
         };
     }, []);
-    const handleMessageSend = () => {
+    const handleMessageSend = useCallback(() => {
         if (message.trim()) {
             socket.send(message);
             addMessage(message);
             setMessage('');
         }
-    };
+    }, [message, addMessage]);
+
+    const renderItem = useCallback(({ item, index }) => (
+        <ThemedText key={index} style={styles.messageText}>{item}</ThemedText>
+    ), []);
     return (
         <>
             <ThemedText>Status: {isConnected ? 'connected' : 'disconnected'}</ThemedText>
             <ThemedText>Transport: {transport}</ThemedText>
-            <ThemedView style={styles.messageContainer}>
-                {messages.map((msg, index) => (
-                    <ThemedText key={index}>{msg}</ThemedText>
-                ))}
-            </ThemedView>
+            <FlatList
+                    data={messages}
+                    renderItem={renderItem}
+                    keyExtractor={(item, index) => index.toString()}
+                    contentContainerStyle={styles.messageContainer}
+                    style={styles.messageContainer}
+                />
             <InputField
                 value={message}
                 onChangeText={setMessage}
@@ -84,9 +90,13 @@ export default MainContainer
 
 const styles = StyleSheet.create({
     messageContainer: {
-        flex: 1,
-        width: '100%',
+        flexGrow: 1,
         padding: 10,
+        alignSelf: 'flex-start',
+        width: '100%'
+    },
+    messageText: {
+        marginBottom: 5,
     },
     button: {
         backgroundColor: Colors.yellow,
