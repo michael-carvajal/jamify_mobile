@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, ScrollView } from 'react-native';
+import { StyleSheet, ScrollView, KeyboardAvoidingView, Platform, SafeAreaView } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -13,11 +13,14 @@ export default function Message() {
     const { user } = useUser();
     const insets = useSafeAreaInsets();
     return (
-        <ScrollView showsVerticalScrollIndicator={false} style={{ paddingTop: insets.top, backgroundColor: Colors[colorScheme ?? 'light'].background }}>
-            <ThemedView style={styles.container}>
-                {user ? <MainContainer /> : <ThemedText>Sign up to message your partners!</ThemedText>}
-            </ThemedView>
-        </ScrollView>
+        <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            style={{...styles.container, paddingTop: insets.top,  backgroundColor : Colors[colorScheme ?? 'light'].background }}
+            keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 25}
+        >
+
+            {user ? <MainContainer /> : <ThemedText>Sign up to message your partners!</ThemedText>}
+        </KeyboardAvoidingView>
     );
 }
 
