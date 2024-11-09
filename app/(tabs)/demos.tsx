@@ -2,10 +2,13 @@ import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { Audio } from 'expo-av';
 import { ThemedView } from '@/components/ThemedView';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 export default function Demos() {
   const [recording, setRecording] = React.useState();
   const [recordings, setRecordings] = React.useState([]);
+  const navigation = useNavigation<NavigationProp<any>>();
+
 
   async function startRecording() {
     try {
@@ -58,9 +61,13 @@ export default function Demos() {
   function clearRecordings() {
     setRecordings([])
   }
-
+  function handleTunerNav () {
+    navigation.navigate('Tuner')
+  }
   return (
     <ThemedView style={styles.container} >
+      
+      <Button title="Tuner" onPress={handleTunerNav} />
       <Button title={recording ? 'Stop Recording' : 'Start Recording\n\n\n'} onPress={recording ? stopRecording : startRecording} />
       {getRecordingLines()}
       <Button title={recordings.length > 0 ? '\n\n\nClear Recordings' : ''} onPress={clearRecordings} />

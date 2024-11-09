@@ -1,0 +1,14 @@
+import { StyleSheet, Text, View } from 'react-native'
+import React from 'react'
+
+const Tuner = () => {
+  return (
+    <View>
+      <Text>Tuner</Text>
+    </View>
+  )
+}
+
+export default Tuner
+
+const styles = StyleSheet.create({})
