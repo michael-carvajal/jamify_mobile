@@ -7,6 +7,7 @@
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
@@ -41,6 +42,7 @@
       "eas": {
         "projectId": "35051448-e3c9-4aa6-9f11-0fccac9fac27"
       }
-    }
+    },
+    "owner": "michaelcarvajal"
   }
 }
