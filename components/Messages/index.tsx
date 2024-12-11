@@ -15,7 +15,6 @@ const MainContainer = () => {
     const { messages, addMessage, clearMessages } = useMessages();
     const [selectedUser, setSelectedUser] = useState(null);
     const [showUserSelect, setShowUserSelect] = useState(false);
-    const [availableUsers, setAvailableUsers] = useState([]);
 
     useEffect(() => {
         if (socket.connected) {
@@ -98,7 +97,6 @@ const MainContainer = () => {
                 visible={showUserSelect}
                 onClose={() => setShowUserSelect(false)}
                 onSelectUser={setSelectedUser}
-                availableUsers={availableUsers}
             />
 
             <FlatList

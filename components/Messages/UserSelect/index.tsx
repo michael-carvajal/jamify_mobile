@@ -1,17 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal, View, TouchableOpacity, StyleSheet } from 'react-native';
 import { ThemedText } from '../../ThemedText';
 import { Colors } from '@/constants/Colors';
 import { ThemedView } from '@/components/ThemedView';
-
+import { useUser } from '@/context/UserContext';
 interface UserSelectProps {
   visible: boolean;
   onClose: () => void;
   onSelectUser: (user: string) => void;
-  availableUsers: string[];
 }
+const UserSelect = ({ visible, onClose, onSelectUser }: UserSelectProps) => {
+  const { allUsers } = useUser()
 
-const UserSelect = ({ visible, onClose, onSelectUser, availableUsers }: UserSelectProps) => {
   return (
     <Modal
       visible={visible}
@@ -21,16 +21,16 @@ const UserSelect = ({ visible, onClose, onSelectUser, availableUsers }: UserSele
       <View style={styles.modalContainer}>
         <ThemedView style={styles.modalContent}>
           <ThemedText style={styles.modalTitle}>Select User</ThemedText>
-          {availableUsers.map((user) => (
+          {allUsers?.map((user) => (
             <TouchableOpacity
-              key={user}
+              key={user.id}
               style={styles.userItem}
               onPress={() => {
-                onSelectUser(user);
+                onSelectUser(user.username);
                 onClose();
               }}
             >
-              <ThemedText>{user}</ThemedText>
+              <ThemedText>{user.username}</ThemedText>
             </TouchableOpacity>
           ))}
           <TouchableOpacity
