@@ -3,8 +3,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const STORAGE_KEY = 'MESSAGE_HISTORY';
 
+interface Message {
+  text: string;
+  from: string;
+  to?: string;
+  timestamp: number;
+}
+
 const useMessages = () => {
-  const [messages, setMessages] = useState<string[]>([]); // Explicitly type the state as an array of strings
+  const [messages, setMessages] = useState<Message[]>([]); // Updated type
 
   useEffect(() => {
     const loadMessages = async () => {
@@ -21,9 +28,15 @@ const useMessages = () => {
     loadMessages();
   }, []);
 
-  const addMessage = async (message: string) => {
+  const addMessage = async (message: string, from: string, to?: string) => {
     setMessages((prevMessages) => {
-      const newMessages = [...prevMessages, message];
+      const newMessage: Message = {
+        text: message,
+        from,
+        to,
+        timestamp: Date.now(),
+      };
+      const newMessages = [...prevMessages, newMessage];
       AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(newMessages)).catch((error) => {
         console.error('Failed to save message to storage', error);
       });
