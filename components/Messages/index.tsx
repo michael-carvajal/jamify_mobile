@@ -6,6 +6,8 @@ import { socket } from '../../socket';
 import { Colors } from '@/constants/Colors'
 import { ThemedText } from '../ThemedText'
 import UserSelect from './UserSelect';
+import { ThemedView } from '../ThemedView';
+import { TabBarIcon } from '../navigation/TabBarIcon';
 
 
 const MainContainer = () => {
@@ -83,16 +85,21 @@ const MainContainer = () => {
 
     return (
         <>
-            <ThemedText>Status: {isConnected ? 'connected' : 'disconnected'}</ThemedText>
-            <ThemedText>Transport: {transport}</ThemedText>
-            <TouchableOpacity
-                style={styles.userSelectButton}
-                onPress={() => setShowUserSelect(true)}
-            >
-                <ThemedText>
-                    {selectedUser ? `Chatting with: ${selectedUser}` : 'Select User'}
-                </ThemedText>
-            </TouchableOpacity>
+            <ThemedText>Status: {isConnected ? 'online' : 'offline'}</ThemedText>
+            <ThemedView style={styles.messagesHeader}>
+                <TouchableOpacity
+                    style={styles.userSelectButton}
+                    onPress={() => setShowUserSelect(true)}
+                >
+                    <ThemedText>
+                        {selectedUser ? `Chatting with: ${selectedUser}` : 'Select User'}
+                    </ThemedText>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={clearMessages}>
+                    <TabBarIcon name={'trash-bin'} color={'red'} />
+                </TouchableOpacity>
+
+            </ThemedView>
             <UserSelect
                 visible={showUserSelect}
                 onClose={() => setShowUserSelect(false)}
@@ -111,7 +118,7 @@ const MainContainer = () => {
                 onChangeText={setMessage}
                 placeholder="Type a message"
             />
-            <TouchableOpacity onPress={handleMessageSend} style={styles.button}>
+            <TouchableOpacity onPress={handleMessageSend} disabled={!selectedUser ? true : false} style={{ ...styles.button, backgroundColor: selectedUser ? Colors.yellow : Colors.grey }}>
                 <ThemedText style={styles.buttonText}>Send Message</ThemedText>
             </TouchableOpacity>
         </>
@@ -127,11 +134,18 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-start',
         width: '100%'
     },
+    messagesHeader: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignContent: 'center',
+        width: '100%',
+        paddingHorizontal: 5
+    },
     messageText: {
         marginBottom: 5,
     },
     button: {
-        backgroundColor: Colors.yellow,
         padding: 10,
         borderRadius: 5,
         alignItems: 'center',
@@ -139,7 +153,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     buttonText: {
-        color: Colors.grey,
+        color: Colors.black,
         fontSize: 16,
     },
     userSelectButton: {
