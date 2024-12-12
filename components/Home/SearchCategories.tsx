@@ -47,7 +47,8 @@ export default SearchCategories;
 const styles = StyleSheet.create({
     container: {
         marginTop: 20,
-        marginBottom: 40
+        marginBottom: 40,
+        gap: 10
     },
     row: {
         flexDirection: 'row',
@@ -55,7 +56,6 @@ const styles = StyleSheet.create({
         gap: 10
     },
     item: {
-        marginBottom: 10, // Adjust the bottom margin to your preference
     },
     card: {
         backgroundColor: Colors.red,

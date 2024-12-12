@@ -9,12 +9,10 @@ const SearchFeatured = () => {
   const featuredSubjects = ["Top 100", "For you", "Replay"];
 
   return (
-    <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.container}>
+    <ScrollView horizontal style={styles.container}>
       {featuredSubjects.map((feature, index) => (
-        <Link key={`featured-${index}`} href={{ pathname: 'SearchResults', params: { filter: feature } }}>
-          <ThemedView style={styles.card}>
+        <Link style={styles.card} key={`featured-${index}`} href={{ pathname: 'SearchResults', params: { filter: feature } }}>
             <ThemedText>{feature}</ThemedText>
-          </ThemedView>
         </Link>
       ))}
     </ScrollView>
@@ -25,14 +23,12 @@ export default SearchFeatured;
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
     marginTop: 25,
   },
   card: {
     height: 150,
     width: 130,
-    justifyContent: 'center',
-    alignItems: 'center',
+    display : 'flex',
     borderRadius: 5,
     marginRight: 10,
     borderWidth: 1,

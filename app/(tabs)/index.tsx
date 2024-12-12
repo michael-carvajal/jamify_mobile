@@ -44,9 +44,6 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    //use this for background color debugging
-  },
   container: {
     paddingHorizontal: 16,
     justifyContent: 'center',

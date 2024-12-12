@@ -23,7 +23,6 @@ const BestRated: React.FC<BestRatedProps> = ({ songSheets }) => {
         <Pressable key={`best rated ${index}`} onPress={() => handlePress(item)}>
           <ThemedView style={styles.item}>
             <ThemedText>{item.title}</ThemedText>
-            {/* Render other song sheet details */}
           </ThemedView>
         </Pressable>
       ))}
