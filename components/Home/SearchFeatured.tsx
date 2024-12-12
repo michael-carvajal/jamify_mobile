@@ -1,9 +1,12 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { ThemedText } from '../ThemedText';
 
 const SearchFeatured = () => {
   const featuredSubjects = ["Top 100", "For you", "Replay"];
+  const navigation = useNavigation<NavigationProp<any>>();
 
   // Helper function to generate random gradient coordinates
   const getRandomGradientCoords = () => {
@@ -13,21 +16,24 @@ const SearchFeatured = () => {
     };
   };
 
+  const handlePress = (feature: string) => {
+    navigation.navigate('SearchResults', { filter: feature });
+  };
   return (
     <ScrollView horizontal style={styles.container}>
       {featuredSubjects.map((feature, index) => {
         const { start, end } = getRandomGradientCoords(); // Generate random start and end points
         return (
-          <View style={styles.card} key={`featured-${index}`}>
+          <Pressable onPress={() => handlePress(feature)} style={styles.card} key={`featured-${index}`}>
             <LinearGradient
               colors={['rgba(255,255,255,0.3)', 'rgba(50, 14, 1, 0.5)']}
               start={start}
               end={end}
               style={styles.gradient}
             >
-              <Text style={styles.text}>{feature}</Text>
+              <ThemedText style={styles.text}>{feature}</ThemedText>
             </LinearGradient>
-          </View>
+          </Pressable>
         );
       })}
     </ScrollView>
@@ -54,7 +60,6 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     fontWeight: '600',
-    color: 'white',
   },
 });
 
