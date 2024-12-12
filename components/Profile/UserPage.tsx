@@ -10,47 +10,69 @@ const UserPage: React.FC = () => {
   return (
     <ThemedView style={styles.container}>
       <ThemedText style={styles.title}>User Profile</ThemedText>
-      <View style={styles.userInfo}>
-        <ThemedText style={styles.label}>Name:</ThemedText>
-        <ThemedText style={styles.value}>{user?.username}</ThemedText>
+      <View style={styles.card}>
+        <View style={styles.userInfo}>
+          <ThemedText style={styles.label}>Name:</ThemedText>
+          <ThemedText style={styles.value}>{user?.username}</ThemedText>
+        </View>
+        <View style={styles.userInfo}>
+          <ThemedText style={styles.label}>Email:</ThemedText>
+          <ThemedText style={styles.value}>{user?.email}</ThemedText>
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button
+            title="Logout"
+            onPress={logout}
+            color="#FF6B6B"
+          />
+        </View>
       </View>
-      <View style={styles.userInfo}>
-        <ThemedText style={styles.label}>Email:</ThemedText>
-        <ThemedText style={styles.value}>{user?.email}</ThemedText>
-      </View>
-      {/* Add more user info fields as needed */}
-      <Button
-        title="Logout"
-        onPress={logout}
-      />
     </ThemedView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    flex: 1,
     padding: 20,
   },
   title: {
-    fontSize: 24,
-    marginBottom: 20,
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 24,
+    textAlign: 'center',
+  },
+  card: {
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    borderRadius: 12,
+    padding: 20,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
   userInfo: {
     flexDirection: 'row',
-    marginBottom: 10,
+    marginBottom: 16,
+    paddingVertical: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(255, 255, 255, 0.1)',
   },
   label: {
-    fontWeight: 'bold',
-    marginRight: 10,
+    fontWeight: '600',
+    width: 80,
+    fontSize: 16,
   },
   value: {
     flex: 1,
+    fontSize: 16,
   },
-  message: {
-    fontSize: 18,
-    marginBottom: 20,
+  buttonContainer: {
+    marginTop: 24,
   },
 });
 
