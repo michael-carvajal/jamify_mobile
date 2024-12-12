@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const STORAGE_KEY = 'MESSAGE_HISTORY';
 
-interface Message {
+export interface Message {
   text: string;
   from: string;
   to?: string;

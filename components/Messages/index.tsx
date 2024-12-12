@@ -1,7 +1,7 @@
 import { FlatList, StyleSheet, Text, TouchableOpacity, View, Modal } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
 import InputField from '../InputField'
-import useMessages from '@/hooks/useMessages';
+import useMessages, { Message } from '@/hooks/useMessages';
 import { socket } from '../../socket';
 import { Colors } from '@/constants/Colors'
 import { ThemedText } from '../ThemedText'
@@ -15,7 +15,7 @@ const MainContainer = () => {
     const [transport, setTransport] = useState('N/A');
     const [message, setMessage] = useState('');
     const { messages, addMessage, clearMessages } = useMessages();
-    const [selectedUser, setSelectedUser] = useState(null);
+    const [selectedUser, setSelectedUser] = useState<string>('');
     const [showUserSelect, setShowUserSelect] = useState(false);
 
     useEffect(() => {

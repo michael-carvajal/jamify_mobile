@@ -15,7 +15,7 @@ const SearchCategories = () => {
     const categories = ["Artist", "Rock", "Pop", "Country", "Folk", "Decades"];
 
     const renderItems = (item: string, index: number) => (
-        <Link key={`search-cat-${index}`} href={{ pathname: "SearchResults", params: { filter: item } }} >
+        <Link key={`search-cat-${index}`} href={{ pathname: "/SearchResults", params: { filter: item } }} >
             <View style={[styles.item, { height: itemSize, width: itemSize }]} >
                 <ThemedView style={styles.card} >
                     <ThemedText style={styles.cardName}>{item}</ThemedText>
